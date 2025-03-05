@@ -1,1 +1,0 @@
-﻿dotnet-ef dbcontext scaffold "Server=localhost;Database=SchoolsDb;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true" Microsoft.EntityFrameworkCore.SqlServer -o Models -f
