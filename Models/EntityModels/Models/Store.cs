@@ -7,7 +7,11 @@ public partial class Store
 {
     public int Id { get; set; }
 
+    public int SaleId { get; set; }
+
     public string Name { get; set; } = null!;
 
-    public virtual ICollection<Sale> Sales { get; set; } = new List<Sale>();
+    public string Location { get; set; } = null!;
+
+    public virtual Sale Sale { get; set; } = null!;
 }

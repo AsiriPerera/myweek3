@@ -44,17 +44,13 @@ public partial class IndustryConnectWeek2Context : DbContext
         {
             entity
                 .HasNoKey()
-                .ToView("CustomerSales");
+                .ToView("CustomerSale");
 
-            entity.Property(e => e.CustomerId).HasColumnName("Customer Id");
+            entity.Property(e => e.CustomerId).HasColumnName("Customer ID");
             entity.Property(e => e.DateSold).HasColumnType("datetime");
-            entity.Property(e => e.FirstName).HasMaxLength(30);
-            entity.Property(e => e.LastName).HasMaxLength(40);
+            entity.Property(e => e.FullName).HasMaxLength(71);
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Price).HasColumnType("money");
-            entity.Property(e => e.TotalPurchases)
-                .HasColumnType("money")
-                .HasColumnName("Total Purchases");
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -78,17 +74,19 @@ public partial class IndustryConnectWeek2Context : DbContext
             entity.HasOne(d => d.Product).WithMany(p => p.Sales)
                 .HasForeignKey(d => d.ProductId)
                 .HasConstraintName("FK_Sale_Product");
-
-            entity.HasOne(d => d.Store).WithMany(p => p.Sales)
-                .HasForeignKey(d => d.StoreId)
-                .HasConstraintName("FK_Sale_Store");
         });
 
         modelBuilder.Entity<Store>(entity =>
         {
             entity.ToTable("Store");
 
-            entity.Property(e => e.Name).HasMaxLength(100);
+            entity.Property(e => e.Location).HasMaxLength(30);
+            entity.Property(e => e.Name).HasMaxLength(30);
+
+            entity.HasOne(d => d.Sale).WithMany(p => p.Stores)
+                .HasForeignKey(d => d.SaleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Store_Sale");
         });
 
         OnModelCreatingPartial(modelBuilder);

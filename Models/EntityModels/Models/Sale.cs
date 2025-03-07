@@ -13,11 +13,9 @@ public partial class Sale
 
     public DateTime? DateSold { get; set; }
 
-    public int? StoreId { get; set; }
-
     public virtual Customer? Customer { get; set; }
 
     public virtual Product? Product { get; set; }
 
-    public virtual Store? Store { get; set; }
+    public virtual ICollection<Store> Stores { get; set; } = new List<Store>();
 }
